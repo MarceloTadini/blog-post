@@ -1,22 +1,13 @@
 import YoutubeVideo from "@/app/components/YoutubeVideo";
+import { IPost } from "@/app/types";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-
-interface Post {
-    title: string;
-    author: string;
-    content: string;
-    intro: string;
-    imageUrl: string;
-    videoUrl: string;
-}
-
 export default function Post() {
     const router = useRouter();
     const { id } = router.query; // Pega o parâmetro `id` da URL
-    const [post, setPost] = useState<Post | null>(null);
+    const [post, setPost] = useState<IPost>();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
   

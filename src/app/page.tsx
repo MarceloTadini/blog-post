@@ -55,7 +55,7 @@ export default function Home() {
         />
         {error && <p className="text-red-500 mt-2">{error}</p>}
         <button
-          className="w-32 mt-2 p-2 bg-fontColor-900 rounded-xl hover:opacity-80 text-white"
+          className="w-32 mt-2 p-2 bg-fontColor-900 rounded-xl hover:opacity-80 text-white bg-blue-500"
           disabled={loading || email === "" || password === ""}
           onClick={handleLogin}
         >

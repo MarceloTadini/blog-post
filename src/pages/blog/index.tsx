@@ -4,20 +4,11 @@ import axios from "axios";
 import { FilePenLineIcon, Trash2Icon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
-interface Post {
-  _id: string;
-  title: string;
-  author: string;
-  content: string;
-  intro: string;
-  imageUrl: string;
-  videoUrl: string;
-}
+import { IPost } from "@/app/types";
 
 export default function Blog() {
   const router = useRouter();
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<IPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -72,7 +63,7 @@ export default function Blog() {
           </div>
           <div className="flex flex-col justify-center gap-2">
             <Trash2Icon onClick={() => alert("Remover post")} className="cursor-pointer text-red-500" />
-            <FilePenLineIcon onClick={() => router.push(`/blog/edit/${post.title}`)} className="cursor-pointer text-blue-500" />
+            <FilePenLineIcon onClick={() => router.push(`/blog/edit/${post._id}`)} className="cursor-pointer text-blue-500" />
           </div>
         </article>
       ))}

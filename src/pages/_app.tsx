@@ -5,7 +5,7 @@ import Breadcrumbs from "@/app/components/Breadcrumbs";
 
 function Pages({Component, pageProps}: AppProps) {
     return (
-        <div className="p-4">
+        <div>
             <Header/>
             <Breadcrumbs/>
             <Component {...pageProps}/>

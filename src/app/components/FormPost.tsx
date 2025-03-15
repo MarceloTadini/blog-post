@@ -1,35 +1,32 @@
 import { useState } from "react";
-import axios from "axios";
 import { useRouter } from "next/navigation";
+import { IPost } from "../types";
 
-export default function FormPost() {
+interface FormPostProps {
+  initialData?: IPost;
+  onSubmit: (postData: IPost) => Promise<void>;
+}
+
+export default function FormPost({ initialData, onSubmit }: FormPostProps) {
   const router = useRouter();
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [content, setContent] = useState("");
-  const [intro, setIntro] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [videoUrl, setVideoUrl] = useState("");
+  const [title, setTitle] = useState(initialData?.title || "");
+  const [author, setAuthor] = useState(initialData?.author || "");
+  const [content, setContent] = useState(initialData?.content || "");
+  const [intro, setIntro] = useState(initialData?.intro || "");
+  const [imageUrl, setImageUrl] = useState(initialData?.imageUrl || "");
+  const [videoUrl, setVideoUrl] = useState(initialData?.videoUrl || "");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const newPost = {
-      title,
-      author,
-      content,
-      intro,
-      imageUrl,
-      videoUrl,
-    };
-
     setLoading(true);
+    setError(false);
+
     try {
-      await axios.post("https://blog-posts-hori.onrender.com/post", newPost);
-      router.push("/blog"); // Redireciona para a página de blog após o sucesso
-    } catch (error) {
+      await onSubmit({ title, author, content, intro, imageUrl, videoUrl });
+      router.push("/blog");
+    } catch {
       setError(true);
     } finally {
       setLoading(false);
@@ -38,9 +35,11 @@ export default function FormPost() {
 
   return (
     <div className="w-4/5 mx-auto py-10">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Criar Novo Post</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-6">
+        {initialData ? "Editar Post" : "Criar Novo Post"}
+      </h1>
 
-      {error && <p className="text-center text-red-500 mb-4">Erro ao criar post.</p>}
+      {error && <p className="text-center text-red-500 mb-4">Erro ao salvar post.</p>}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -119,7 +118,7 @@ export default function FormPost() {
             className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-sm hover:shadow-md"
             disabled={loading}
           >
-            {loading ? "Criando..." : "Criar Post"}
+            {loading ? "Salvando..." : "Salvar"}
           </button>
         </div>
       </form>
