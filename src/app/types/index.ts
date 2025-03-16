@@ -7,3 +7,13 @@ export interface IPost{
   imageUrl: string;
   videoUrl: string;
 }
+
+export interface IFormRegisterUser{
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export interface IErrorInputTextProps {
+  children?: React.ReactNode;
+}
