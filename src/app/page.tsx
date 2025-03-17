@@ -30,7 +30,7 @@ export default function Home() {
     setError("");
 
     try {
-      const response = await axios.post("/api/login", values);
+      await axios.post("/api/login", values);
       resetForm();
       router.push("/blog");
     } catch (err) {
@@ -57,13 +57,13 @@ export default function Home() {
 
       {/* Formulário */}
       <Formik
-        initialValues={{ name: "", email: "", password: "" }}
+        initialValues={{ email: "", password: "" }}
         validationSchema={validationSchema}
         onSubmit={handleLogin}
       >
         {({ isSubmitting, isValid }) => (
           <Form className="flex flex-col w-[90vw] sm:w-[400px] bg-white shadow-lg rounded-lg p-6">
-            <h2 className="text-2xl font-semibold text-gray-900 text-center mb-4">Cadastro</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 text-center mb-4">Login</h2>
 
             {/* Campo Email */}
             <fieldset>

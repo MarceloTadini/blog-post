@@ -1,5 +1,6 @@
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import { IPost } from "../types";
 
 interface FormPostProps {
@@ -7,121 +8,88 @@ interface FormPostProps {
   onSubmit: (postData: IPost) => Promise<void>;
 }
 
+const validationSchema = Yup.object({
+  title: Yup.string().min(3, "O título deve ter pelo menos 3 caracteres").required("Título é obrigatório"),
+  author: Yup.string().required("Autor é obrigatório"),
+  intro: Yup.string().max(150, "A introdução deve ter no máximo 150 caracteres").required("Introdução é obrigatória"),
+  content: Yup.string().min(10, "O conteúdo deve ter pelo menos 10 caracteres").required("Conteúdo é obrigatório"),
+  imageUrl: Yup.string(),
+  videoUrl: Yup.string(),
+});
+
 export default function FormPost({ initialData, onSubmit }: FormPostProps) {
   const router = useRouter();
-  const [title, setTitle] = useState(initialData?.title || "");
-  const [author, setAuthor] = useState(initialData?.author || "");
-  const [content, setContent] = useState(initialData?.content || "");
-  const [intro, setIntro] = useState(initialData?.intro || "");
-  const [imageUrl, setImageUrl] = useState(initialData?.imageUrl || "");
-  const [videoUrl, setVideoUrl] = useState(initialData?.videoUrl || "");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(false);
-
-    try {
-      await onSubmit({ title, author, content, intro, imageUrl, videoUrl });
-      router.push("/blog");
-    } catch {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
-    <div className="w-4/5 mx-auto py-10">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">
+    <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
         {initialData ? "Editar Post" : "Criar Novo Post"}
       </h1>
 
-      {error && <p className="text-center text-red-500 mb-4">Erro ao salvar post.</p>}
+      <Formik
+        initialValues={{
+          title: initialData?.title || "",
+          author: initialData?.author || "",
+          content: initialData?.content || "",
+          intro: initialData?.intro || "",
+          imageUrl: initialData?.imageUrl || "",
+          videoUrl: initialData?.videoUrl || "",
+        }}
+        validationSchema={validationSchema}
+        onSubmit={async (values, { setSubmitting }) => {
+          try {
+            await onSubmit(values);
+            router.push("/blog");
+          } catch (error) {
+            console.error("Erro ao salvar post", error);
+          } finally {
+            setSubmitting(false);
+          }
+        }}
+      >
+        {({ isSubmitting }) => (
+          <Form className="space-y-4">
+            {[
+              { label: "Título", name: "title", type: "text" },
+              { label: "Autor", name: "author", type: "text" },
+              { label: "Introdução", name: "intro", type: "text" },
+              { label: "URL da Imagem", name: "imageUrl", type: "text" },
+              { label: "URL do Vídeo", name: "videoUrl", type: "text" },
+            ].map(({ label, name, type }) => (
+              <div key={name}>
+                <label className="block text-sm font-semibold text-gray-700" htmlFor={name}>{label}</label>
+                <Field
+                  type={type}
+                  name={name}
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
+                />
+                <ErrorMessage name={name} component="p" className="text-red-500 text-sm" />
+              </div>
+            ))}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="title" className="block text-sm font-semibold text-gray-700">Título</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-lg"
-            required
-          />
-        </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700">Conteúdo</label>
+              <Field
+                as="textarea"
+                name="content"
+                rows={5}
+                className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
+              />
+              <ErrorMessage name="content" component="p" className="text-red-500 text-sm" />
+            </div>
 
-        <div>
-          <label htmlFor="author" className="block text-sm font-semibold text-gray-700">Autor</label>
-          <input
-            type="text"
-            id="author"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-lg"
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="intro" className="block text-sm font-semibold text-gray-700">Introdução</label>
-          <input
-            type="text"
-            id="intro"
-            value={intro}
-            onChange={(e) => setIntro(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-lg"
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="content" className="block text-sm font-semibold text-gray-700">Conteúdo</label>
-          <textarea
-            id="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-lg"
-            rows={5}
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="imageUrl" className="block text-sm font-semibold text-gray-700">URL da Imagem</label>
-          <input
-            type="url"
-            id="imageUrl"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-lg"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="videoUrl" className="block text-sm font-semibold text-gray-700">URL do Vídeo</label>
-          <input
-            type="url"
-            id="videoUrl"
-            value={videoUrl}
-            onChange={(e) => setVideoUrl(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-lg"
-          />
-        </div>
-
-        <div className="flex justify-center">
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-sm hover:shadow-md"
-            disabled={loading}
-          >
-            {loading ? "Salvando..." : "Salvar"}
-          </button>
-        </div>
-      </form>
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`px-6 py-2 text-white rounded-lg transition ${isSubmitting ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"}`}
+              >
+                {isSubmitting ? "Salvando..." : "Salvar"}
+              </button>
+            </div>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 }
