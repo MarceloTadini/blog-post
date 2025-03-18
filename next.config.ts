@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: ["example.com", "blog-posts-hori.onrender.com"], // Adicione os domínios necessários
+  },
 };
 
 export default nextConfig;

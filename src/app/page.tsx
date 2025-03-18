@@ -111,6 +111,17 @@ export default function Home() {
         </Link>
       </p>
 
+      {/* Acesso para estudantes sem login */}
+      <div className="mt-6 text-center">
+        <p className="text-gray-200 text-sm">Caso seja um estudante e não possua login, acesse o blog diretamente.</p>
+        <Link
+          href="/blog"
+          className="mt-2 inline-block bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600 transition"
+        >
+          Acessar Blog
+        </Link>
+      </div>
+
     </main>
   );
 }

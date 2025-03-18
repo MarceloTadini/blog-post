@@ -1,9 +1,6 @@
 import YoutubeVideo from "@/app/components/YoutubeVideo";
 import { usePosts } from "@/app/context/PostsContext";
-import { IPost } from "@/app/types";
-import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 
 export default function Post() {
     const router = useRouter();

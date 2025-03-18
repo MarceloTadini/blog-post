@@ -11,10 +11,6 @@ export default function EditPostPage() {
   const {accessToken, isAuthenticated} = useAuth();
   const {loading, posts} = usePosts();
 
-  /*if (!isAuthenticated) {
-    router.push("/");
-  }*/
-
   const handleUpdatePost = async (updatedData: IPost) => {
     await axios.put(`https://blog-posts-hori.onrender.com/post/${postId}`, updatedData, {
       headers: {
@@ -24,6 +20,7 @@ export default function EditPostPage() {
   };
 
   if (loading) return <p className="text-center">Carregando...</p>;
+  if (!isAuthenticated) return <p className="text-center mt-10">Necessário fazer o Login para editar um Post</p>;
 
   const post = posts.find((post) => post._id === postId);
 

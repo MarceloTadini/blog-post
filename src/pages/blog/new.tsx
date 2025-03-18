@@ -1,29 +1,12 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import FormPost from "@/app/components/FormPost";
 import { IPost } from "@/app/types";
+import { useAuth } from "@/app/context/AuthContext";
 
 export default function NewPostPage() {
   const router = useRouter();
-  const [accessToken, setAccessToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    async function fetchToken() {
-      try {
-        const tokenResponse = await axios.get("/api/token");
-        if (tokenResponse.data.access_token) {
-          setAccessToken(tokenResponse.data.access_token);
-        } else {
-          router.push("/"); // Redireciona se não estiver logado
-        }
-      } catch (error) {
-        router.push("/"); // Redireciona se houver erro ao obter o token
-      }
-    }
-
-    fetchToken();
-  }, [router]);
+  const {accessToken, isAuthenticated} = useAuth();
 
   const handleCreatePost = async (postData: IPost) => {
     if (!accessToken) return;
@@ -35,7 +18,7 @@ export default function NewPostPage() {
     });
   };
 
-  if (!accessToken) return <p className="text-center mt-10">Verificando autenticação...</p>;
+  if (!isAuthenticated) return <p className="text-center mt-10">Necessário fazer o Login para cadastrar um novo Post</p>;
 
   return <FormPost onSubmit={handleCreatePost} />;
 }
