@@ -15,10 +15,10 @@ export default function NewPostPage() {
         if (tokenResponse.data.access_token) {
           setAccessToken(tokenResponse.data.access_token);
         } else {
-          router.push("/login"); // Redireciona se não estiver logado
+          router.push("/"); // Redireciona se não estiver logado
         }
       } catch (error) {
-        router.push("/login"); // Redireciona se houver erro ao obter o token
+        router.push("/"); // Redireciona se houver erro ao obter o token
       }
     }
 

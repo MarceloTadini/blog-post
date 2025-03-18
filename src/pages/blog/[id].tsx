@@ -1,4 +1,5 @@
 import YoutubeVideo from "@/app/components/YoutubeVideo";
+import { usePosts } from "@/app/context/PostsContext";
 import { IPost } from "@/app/types";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -7,32 +8,13 @@ import { useEffect, useState } from "react";
 export default function Post() {
     const router = useRouter();
     const { id } = router.query; // Pega o parâmetro `id` da URL
-    const [post, setPost] = useState<IPost>();
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+    const { posts, loading, error } = usePosts();
   
-    useEffect(() => {
-      if (!id) return; // Não tenta carregar os dados até que o `id` esteja disponível
-  
-      async function fetchPost() {
-        try {
-          const response = await axios.get(`https://blog-posts-hori.onrender.com/post/${id}`);
-          setPost(response.data);
-        } catch (error) {
-          setError(true);
-        } finally {
-          setLoading(false);
-        }
-      }
-  
-      fetchPost();
-    }, [id]); // A dependência `id` garante que o post seja recarregado quando o `id` mudar
+    const post = posts.find((p) => p._id === id);
   
     if (loading) return <p className="text-center mt-10">Carregando post...</p>;
     if (error) return <p className="text-center mt-10 text-red-500">Erro ao carregar o post.</p>;
     if (!post) return <p className="text-center mt-10 text-gray-500">Post não encontrado.</p>;
-  
-
 
     return (
         <div className="flex flex-1 py-10 md:flex-row max-md:flex-col">
@@ -52,7 +34,7 @@ export default function Post() {
                         className="w-full max-h-96 object-cover rounded-lg mt-6 shadow-md mb-5"
                     />
 
-                <YoutubeVideo videoId="wDCJWxeGxJw" />
+                <YoutubeVideo videoId={post.videoUrl} />
             </div>
 
         </div>

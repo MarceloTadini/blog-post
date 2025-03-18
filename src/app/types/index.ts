@@ -17,3 +17,15 @@ export interface IFormRegisterUser{
 export interface IErrorInputTextProps {
   children?: React.ReactNode;
 }
+
+export interface PostsContextType {
+  posts: IPost[];
+  loading: boolean;
+  error: boolean;
+  setPosts: (posts: IPost[]) => void;
+}
+
+export interface AuthContextType {
+  accessToken: string | null;
+  isAuthenticated: boolean;
+}

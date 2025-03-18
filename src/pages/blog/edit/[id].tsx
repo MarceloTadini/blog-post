@@ -1,44 +1,21 @@
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router"; 
 import axios from "axios";
 import FormPost from "@/app/components/FormPost";
+import { useAuth } from "@/app/context/AuthContext";
+import { usePosts } from "@/app/context/PostsContext";
+import { IPost } from "@/app/types";
 
 export default function EditPostPage() {
   const router = useRouter();
   const { id: postId } = router.query; 
-  const [postData, setPostData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const {accessToken, isAuthenticated} = useAuth();
+  const {loading, posts} = usePosts();
 
-  useEffect(() => {
-    if (postId) {
-      axios.get(`https://blog-posts-hori.onrender.com/post/${postId}`)
-        .then((res) => {
-          setPostData(res.data);
-          setLoading(false);
-        })
-        .catch(() => {
-          setLoading(false);
-        });
-    }
+  /*if (!isAuthenticated) {
+    router.push("/");
+  }*/
 
-    async function fetchToken() {
-      try {
-        const tokenResponse = await axios.get("/api/token");
-        if (tokenResponse.data.access_token) {
-          setAccessToken(tokenResponse.data.access_token);
-        } else {
-          router.push("/login"); // Redireciona se não estiver logado
-        }
-      } catch (error) {
-        router.push("/login"); // Redireciona se houver erro ao obter o token
-      }
-    }
-
-    fetchToken();
-  }, [postId]);
-
-  const handleUpdatePost = async (updatedData: any) => {
+  const handleUpdatePost = async (updatedData: IPost) => {
     await axios.put(`https://blog-posts-hori.onrender.com/post/${postId}`, updatedData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -48,5 +25,7 @@ export default function EditPostPage() {
 
   if (loading) return <p className="text-center">Carregando...</p>;
 
-  return postData ? <FormPost initialData={postData} onSubmit={handleUpdatePost} /> : <p className="text-center">Post não encontrado.</p>;
+  const post = posts.find((post) => post._id === postId);
+
+  return post ? <FormPost initialData={post} onSubmit={handleUpdatePost} /> : <p className="text-center">Post não encontrado.</p>;
 }

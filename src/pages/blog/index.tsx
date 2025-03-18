@@ -1,53 +1,22 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { usePosts } from "@/app/context/PostsContext";
 import { FilePenLineIcon, Trash2Icon, PlusCircleIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { IPost } from "@/app/types";
+import axios from "axios";
+import { useAuth } from "@/app/context/AuthContext";
 
 export default function Blog() {
   const router = useRouter();
-  const [posts, setPosts] = useState<IPost[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado para verificar login
-
-  useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const response = await axios.get("https://blog-posts-hori.onrender.com/post");
-        setPosts(response.data);
-      } catch (error) {
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    async function checkAuth() {
-      try {
-        const tokenResponse = await axios.get("/api/token");
-        const accessToken = tokenResponse.data.access_token;
-        setIsLoggedIn(!!accessToken); // Define isLoggedIn com base no token
-      } catch {
-        setIsLoggedIn(false);
-      }
-    }
-
-    fetchPosts();
-    checkAuth();
-  }, []);
+  const { posts, loading, error, setPosts } = usePosts();
+  const { accessToken, isAuthenticated } = useAuth();
 
   async function handleRemove(id: string) {
     try {
       const isConfirmed = window.confirm("Tem certeza de que deseja remover este post?");
       if (!isConfirmed) return;
 
-      const tokenResponse = await axios.get("/api/token");
-      const accessToken = tokenResponse.data.access_token;
-
-      if (!accessToken) {
+      if (!isAuthenticated) {
         alert("Você precisa estar logado para remover um post.");
         return;
       }
@@ -59,11 +28,9 @@ export default function Blog() {
       });
 
       alert("Post removido com sucesso");
-      setPosts(posts.filter((post) => post._id !== id));
+      setPosts(posts.filter((post) => post._id !== id)); // Atualiza o contexto sem nova chamada à API
     } catch (err) {
-      if (axios.isAxiosError(err) && err.response) {
-        setError(err.response.data.message || "Erro ao remover post!");
-      }
+      console.error("Erro ao remover post:", err);
     }
   }
 
@@ -74,9 +41,7 @@ export default function Blog() {
     <div className="w-4/5 mx-auto py-10">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-gray-900">Postagens</h1>
-        
-        {/* Exibir botão "Cadastrar Post" apenas se estiver logado */}
-        {isLoggedIn && (
+        {isAuthenticated && (
           <Link href="/blog/new" className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-sm hover:shadow-md">
             <PlusCircleIcon className="w-5 h-5" />
             Cadastrar Post
@@ -106,8 +71,7 @@ export default function Blog() {
             </div>
           </div>
 
-          {/* Exibir botões de editar e excluir apenas se estiver logado */}
-          {isLoggedIn && (
+          {isAuthenticated && (
             <div className="flex flex-col justify-center gap-2">
               <Trash2Icon
                 onClick={() => post._id && handleRemove(post._id)}

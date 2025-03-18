@@ -13,5 +13,5 @@ const YoutubeVideo = ({ videoId }: { videoId: string }) => {
     );
   };
   
-  export default YoutubeVideo;
+export default YoutubeVideo;
   
