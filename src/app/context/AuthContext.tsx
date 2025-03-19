@@ -13,11 +13,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const tokenResponse = await axios.get("/api/token");
         if (tokenResponse.data.access_token) {
           setAccessToken(tokenResponse.data.access_token);
-        } else {
-            alert("Não está logado!") // Redireciona se não estiver logado
         }
       } catch (error) {
-        alert("Não está logado!") // Redireciona se houver erro ao obter o token
+        
       }
     }
 

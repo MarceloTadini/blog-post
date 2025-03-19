@@ -22,7 +22,7 @@ export interface PostsContextType {
   posts: IPost[];
   loading: boolean;
   error: boolean;
-  setPosts: (posts: IPost[]) => void;
+  setPosts: React.Dispatch<React.SetStateAction<IPost[]>>;
 }
 
 export interface AuthContextType {

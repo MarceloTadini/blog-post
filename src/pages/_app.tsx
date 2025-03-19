@@ -5,6 +5,8 @@ import Breadcrumbs from "@/app/components/Breadcrumbs";
 import { useRouter } from "next/router";
 import { PostsProvider } from "@/app/context/PostsContext";
 import { AuthProvider } from "@/app/context/AuthContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Pages({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -16,6 +18,7 @@ function Pages({ Component, pageProps }: AppProps) {
         {!hideHeader && <Header />}
         {!hideHeader && <Breadcrumbs />}
         <Component {...pageProps} />
+        <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
       </AuthProvider>
     </PostsProvider>
   );

@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 import { useAuth } from "@/app/context/AuthContext";
+import SearchInput from "@/app/components/SearchInput";
+import { toast } from "react-toastify";
 
 export default function Blog() {
   const router = useRouter();
@@ -27,8 +29,8 @@ export default function Blog() {
         },
       });
 
-      alert("Post removido com sucesso");
-      setPosts(posts.filter((post) => post._id !== id)); // Atualiza o contexto sem nova chamada à API
+      toast.success("Post removido com sucesso!"); 
+      setPosts(posts.filter((post) => post._id !== id)); 
     } catch (err) {
       console.error("Erro ao remover post:", err);
     }
@@ -41,6 +43,9 @@ export default function Blog() {
     <div className="w-4/5 mx-auto py-10">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-gray-900">Postagens</h1>
+        <div className="mt-4">
+          <SearchInput />
+        </div>
         {isAuthenticated && (
           <Link href="/blog/new" className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-sm hover:shadow-md">
             <PlusCircleIcon className="w-5 h-5" />

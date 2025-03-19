@@ -2,7 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["example.com", "blog-posts-hori.onrender.com"], // Adicione os domínios necessários
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**", // Permite imagens de qualquer domínio
+      },
+    ],
   },
 };
 

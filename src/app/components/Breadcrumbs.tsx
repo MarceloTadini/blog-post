@@ -1,21 +1,14 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { usePosts } from "../context/PostsContext";
 
 const Breadcrumbs = () => {
   const router = useRouter();
   const pathArray = router.pathname.split("/").filter((path) => path);
   const { id } = router.query;
-  const [postTitle, setPostTitle] = useState<string | null>(null);
+  const {posts} = usePosts();
 
-  useEffect(() => {
-    if (id) {
-      axios.get(`https://blog-posts-hori.onrender.com/post/${id}`)
-        .then((res) => setPostTitle(res.data.title))
-        .catch(() => setPostTitle("Post Desconhecido"));
-    }
-  }, [id]);
+  const post = posts.find((p) => p._id === id);
 
   return (
     <nav className="text-sm text-gray-500">
@@ -35,7 +28,7 @@ const Breadcrumbs = () => {
           }
 
           if (path === "[id]" && id) {
-            displayName = postTitle || "Carregando...";
+            displayName = post?.title || "Carregando...";
           }
 
           return (
