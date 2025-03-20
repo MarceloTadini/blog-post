@@ -122,7 +122,7 @@ export default function Register() {
             <button
               type="submit"
               disabled={isSubmitting || !isValid}
-              className={`w-full p-2 text-white rounded-lg transition ${
+              className={`w-full p-2 text-white rounded-lg cursor-pointer transition ${
                 isSubmitting || !isValid ? "bg-gray-400 cursor-not-allowed" : "bg-green-500 hover:bg-green-600"
               }`}
             >

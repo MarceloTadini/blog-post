@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LogOut, LogIn, User } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import Logo from "./Logo";
 
 const Header = () => {
     const router = useRouter();
@@ -18,15 +19,17 @@ const Header = () => {
 
     return (
         <header className="bg-blue-600 text-white p-4 flex justify-between items-center shadow-lg">
-            <h1 className="text-2xl font-bold">Meu Blog</h1>
+            <h1 className="text-2xl font-bold">Blog Posts</h1>
+            {/* <Logo/> */}
             {isAuthenticated ? (
                 <div className="flex items-center gap-4">
-                    <span className="flex items-center gap-2 text-lg">
-                        <User className="w-5 h-5" /> Olá, seja bem-vindo!
+                    <User className="w-5 h-5" /> 
+                    <span className="hidden md:flex items-center gap-2 text-lg">
+                        Olá, seja bem-vindo!
                     </span>
                     <button
                         onClick={handleLogout}
-                        className="flex items-center gap-2 bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg shadow-md transition duration-200"
+                        className="flex items-center gap-2 bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg shadow-md transition duration-200 cursor-pointer"
                     >
                         <LogOut className="w-5 h-5" />
                         Logout

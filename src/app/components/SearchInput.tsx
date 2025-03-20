@@ -27,7 +27,7 @@ export default function SearchInput() {
   };
 
   return (
-    <div className="relative w-90">
+    <div className="relative w-80">
       <input
         type="text"
         placeholder="Buscar post por título, autor ou introdução"

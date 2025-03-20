@@ -29,8 +29,8 @@ export default function Blog() {
         },
       });
 
-      toast.success("Post removido com sucesso!"); 
-      setPosts(posts.filter((post) => post._id !== id)); 
+      toast.success("Post removido com sucesso!");
+      setPosts(posts.filter((post) => post._id !== id));
     } catch (err) {
       console.error("Erro ao remover post:", err);
     }
@@ -41,25 +41,31 @@ export default function Blog() {
 
   return (
     <div className="w-4/5 mx-auto py-10">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col md:flex-row md:justify-between items-center gap-4 md:gap-0">
         <h1 className="text-2xl font-bold text-gray-900">Postagens</h1>
-        <div className="mt-4">
+
+        <div className="w-full md:w-auto flex justify-center">
           <SearchInput />
         </div>
+
         {isAuthenticated && (
-          <Link href="/blog/new" className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-sm hover:shadow-md">
+          <Link
+            href="/blog/new"
+            className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-sm hover:shadow-md"
+          >
             <PlusCircleIcon className="w-5 h-5" />
             Cadastrar Post
           </Link>
         )}
       </div>
 
+
       {posts.length === 0 && <p className="text-center text-gray-500 mt-6">Nenhum post encontrado.</p>}
 
       {posts.map((post) => (
         <article
           key={post._id}
-          className="mt-6 flex justify-between items-center border border-gray-300 p-4 bg-white rounded-lg shadow-sm hover:shadow-md"
+          className="mt-6 flex flex-col md:flex-row justify-between items-center border border-gray-300 p-4 bg-white rounded-lg shadow-sm hover:shadow-md"
         >
           <div onClick={() => router.push(`/blog/${post._id}`)} className="flex flex-1 gap-4 cursor-pointer">
             <Image
@@ -77,7 +83,7 @@ export default function Blog() {
           </div>
 
           {isAuthenticated && (
-            <div className="flex flex-col justify-center gap-2">
+            <div className="flex md:flex-col flex-row justify-center gap-2 mt-4 md:mt-0">
               <Trash2Icon
                 onClick={() => post._id && handleRemove(post._id)}
                 className="cursor-pointer text-red-500 hover:text-red-700"
@@ -89,6 +95,7 @@ export default function Blog() {
             </div>
           )}
         </article>
+
       ))}
     </div>
   );

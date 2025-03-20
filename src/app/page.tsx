@@ -93,7 +93,7 @@ export default function Home() {
             <button
               type="submit"
               disabled={isSubmitting || !isValid}
-              className={`w-full p-2 text-white rounded-lg transition ${isSubmitting || !isValid ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+              className={`w-full p-2 text-white rounded-lg transition cursor-pointer ${isSubmitting || !isValid ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
                 }`}
             >
               {isSubmitting ? "Entrando..." : "Entrar"}
@@ -116,7 +116,7 @@ export default function Home() {
         <p className="text-gray-200 text-sm">Caso seja um estudante e não possua login, acesse o blog diretamente.</p>
         <Link
           href="/blog"
-          className="mt-2 inline-block bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600 transition"
+          className="mt-2 inline-block cursor-pointer bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600 transition"
         >
           Acessar Blog
         </Link>

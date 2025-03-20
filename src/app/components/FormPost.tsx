@@ -13,7 +13,7 @@ const validationSchema = Yup.object({
   author: Yup.string().required("Autor é obrigatório"),
   intro: Yup.string().max(150, "A introdução deve ter no máximo 150 caracteres").required("Introdução é obrigatória"),
   content: Yup.string().min(10, "O conteúdo deve ter pelo menos 10 caracteres").required("Conteúdo é obrigatório"),
-  imageUrl: Yup.string(),
+  imageUrl: Yup.string().url("URL da imagem inválida"),
   videoUrl: Yup.string(),
 });
 
@@ -82,7 +82,7 @@ export default function FormPost({ initialData, onSubmit }: FormPostProps) {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`px-6 py-2 text-white rounded-lg transition ${isSubmitting ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"}`}
+                className={`px-6 py-2 text-white rounded-lg transition cursor-pointer ${isSubmitting ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"}`}
               >
                 {isSubmitting ? "Salvando..." : "Salvar"}
               </button>

@@ -11,7 +11,7 @@ const Breadcrumbs = () => {
   const post = posts.find((p) => p._id === id);
 
   return (
-    <nav className="text-sm text-gray-500">
+    <nav className="text-sm text-gray-500 pt-4 pl-4">
       <ul className="flex items-center space-x-2">
         <li>
           <Link href="/" className="text-blue-500 hover:underline">
