@@ -65,16 +65,18 @@ export default function Blog() {
       {posts.map((post) => (
         <article
           key={post._id}
-          className="mt-6 flex flex-col md:flex-row justify-between items-center border border-gray-300 p-4 bg-white rounded-lg shadow-sm hover:shadow-md"
+          className="mt-6 flex flex-1 flex-col md:flex-row justify-between border min-md:items-center border-gray-300 p-4 bg-white rounded-lg shadow-sm hover:shadow-md"
         >
-          <div onClick={() => router.push(`/blog/${post._id}`)} className="flex flex-1 gap-4 cursor-pointer">
-            <Image
-              src={post.imageUrl || "/placeholder.png"}
-              alt={post.title}
-              className="w-32 h-32 object-cover rounded-lg"
-              width={100}
-              height={100}
-            />
+          <div onClick={() => router.push(`/blog/${post._id}`)} className="flex flex-1 gap-4 cursor-pointer items-center">
+            <div>
+              <Image
+                src={post.imageUrl || "/placeholder.png"}
+                alt={post.title}
+                className="min-w-32 min-h-32 object-cover rounded-lg"
+                width={100}
+                height={100}
+              />
+            </div>
             <div>
               <h2 className="text-xl font-semibold text-gray-900">{post.title}</h2>
               <p className="text-sm text-gray-500">{post.author}</p>
