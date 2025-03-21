@@ -37,7 +37,7 @@ export default function Post() {
                         height={100}
                     />
 
-                    <YoutubeVideo videoId={post.videoUrl} />
+                    <YoutubeVideo videoUrl={post.videoUrl} />
                 </div>
             </div>
         </div>

@@ -13,7 +13,7 @@ const validationSchema = Yup.object({
   author: Yup.string().required("Autor é obrigatório"),
   intro: Yup.string().max(150, "A introdução deve ter no máximo 150 caracteres").required("Introdução é obrigatória"),
   content: Yup.string().min(10, "O conteúdo deve ter pelo menos 10 caracteres").required("Conteúdo é obrigatório"),
-  imageUrl: Yup.string().url("URL da imagem inválida"),
+  imageUrl: Yup.string(),
   videoUrl: Yup.string(),
 });
 
