@@ -30,7 +30,8 @@ export default function EditPostPage() {
       toast.success("Post editado com sucesso!"); 
     
     } catch (err) {
-      console.error("Erro ao adicionar post", err);
+      console.error("Erro ao editar post", err);
+      toast.error("Erro ao editar post, tente novamente!");
     }
 
     

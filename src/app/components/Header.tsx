@@ -2,16 +2,18 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LogOut, LogIn, User } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
-import Logo from "./Logo";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-const Header = () => {
+const Header: React.FC = () => {
     const router = useRouter();
     const {isAuthenticated} = useAuth();
 
     const handleLogout = async () => {
         try {
-            await fetch("/api/logout", { method: "POST" });
+            await axios.post("/api/logout");
             router.refresh();
+            toast.success("Logout realizado com sucesso!");
         } catch (err) {
             console.error("Erro ao fazer logout", err);
         }

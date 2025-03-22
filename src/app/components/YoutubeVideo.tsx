@@ -1,4 +1,6 @@
-const YoutubeVideo = ({ videoUrl }: { videoUrl: string }) => {
+import { YoutubeVideoProps } from "../types";
+
+const YoutubeVideo: React.FC<YoutubeVideoProps> = ({ videoUrl }) => {
   function getVideo() {
     // Se não contém "http", assume que já é um ID
     if (!videoUrl.startsWith('http')) {

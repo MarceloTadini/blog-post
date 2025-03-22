@@ -3,7 +3,6 @@ import FormPost from "@/app/components/FormPost";
 import { IPost } from "@/app/types";
 import { useAuth } from "@/app/context/AuthContext";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
 import { usePosts } from "@/app/context/PostsContext";
 
 export default function NewPostPage() {
@@ -24,6 +23,7 @@ export default function NewPostPage() {
       
     } catch (err) {
       console.error("Erro ao adicionar post", err);
+      toast.error("Erro ao adicionar post, tente novamente!");
     }
   };
 

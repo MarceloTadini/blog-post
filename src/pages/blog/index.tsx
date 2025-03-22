@@ -33,6 +33,7 @@ export default function Blog() {
       setPosts(posts.filter((post) => post._id !== id));
     } catch (err) {
       console.error("Erro ao remover post:", err);
+      toast.error("Erro ao remover post, tente novamente!");
     }
   }
 

@@ -2,7 +2,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { usePosts } from "../context/PostsContext";
 
-const Breadcrumbs = () => {
+
+const Breadcrumbs: React.FC = () => {
   const router = useRouter();
   const pathArray = router.pathname.split("/").filter((path) => path);
   const { id } = router.query;

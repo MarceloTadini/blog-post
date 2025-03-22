@@ -29,3 +29,7 @@ export interface AuthContextType {
   accessToken: string | null;
   isAuthenticated: boolean;
 }
+
+export interface YoutubeVideoProps {
+  videoUrl: string;
+}

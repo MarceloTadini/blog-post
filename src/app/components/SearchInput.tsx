@@ -2,7 +2,7 @@ import { useState } from "react";
 import { SearchIcon } from "lucide-react";
 import { usePosts } from "@/app/context/PostsContext";
 
-export default function SearchInput() {
+const SearchInput: React.FC = () => {
   const { posts, setPosts } = usePosts();
   const [searchTerm, setSearchTerm] = useState("");
   const [originalPosts, setOriginalPosts] = useState(posts);
@@ -39,3 +39,5 @@ export default function SearchInput() {
     </div>
   );
 }
+
+export default SearchInput;

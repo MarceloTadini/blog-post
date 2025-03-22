@@ -17,7 +17,7 @@ const validationSchema = Yup.object({
   videoUrl: Yup.string(),
 });
 
-export default function FormPost({ initialData, onSubmit }: FormPostProps) {
+const FormPost: React.FC<FormPostProps> = ({ initialData, onSubmit }) => {
   const router = useRouter();
 
   return (
@@ -93,3 +93,5 @@ export default function FormPost({ initialData, onSubmit }: FormPostProps) {
     </div>
   );
 }
+
+export default FormPost;

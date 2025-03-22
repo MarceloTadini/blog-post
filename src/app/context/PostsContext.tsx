@@ -22,7 +22,7 @@ export const PostsProvider = ({ children }: { children: ReactNode }) => {
     }
 
     fetchPosts();
-  }, []);
+  }, [posts]);
 
   return (
     <PostsContext.Provider value={{ posts, loading, error, setPosts }}>
