@@ -10,8 +10,10 @@ import { toast } from "react-toastify";
 
 export default function Blog() {
   const router = useRouter();
-  const { posts, loading, error, setPosts } = usePosts();
+  const { posts, loading, error, fetchPosts } = usePosts();
   const { accessToken, isAuthenticated } = useAuth();
+  console.log("Posts carregados:", posts);
+
 
   async function handleRemove(id: string) {
     try {
@@ -29,8 +31,9 @@ export default function Blog() {
         },
       });
 
+      fetchPosts();
       toast.success("Post removido com sucesso!");
-      setPosts(posts.filter((post) => post._id !== id));
+      
     } catch (err) {
       console.error("Erro ao remover post:", err);
       toast.error("Erro ao remover post, tente novamente!");
@@ -63,15 +66,15 @@ export default function Blog() {
 
       {posts.length === 0 && <p className="text-center text-gray-500 mt-6">Nenhum post encontrado.</p>}
 
-      {posts.map((post) => (
+      {posts.map((post, index) => (
         <article
-          key={post._id}
+          key={post._id || index}
           className="mt-6 flex flex-1 flex-col md:flex-row justify-between border min-md:items-center border-gray-300 p-4 bg-white rounded-lg shadow-sm hover:shadow-md"
         >
           <div onClick={() => router.push(`/blog/${post._id}`)} className="flex flex-1 gap-4 cursor-pointer items-center">
             <div>
               <Image
-                src={post.imageUrl || "/placeholder.png"}
+                src={post.imageUrl || "/images/default-image.png"}
                 alt={post.title}
                 className="min-w-32 min-h-32 object-cover rounded-lg"
                 width={100}

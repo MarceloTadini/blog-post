@@ -7,7 +7,7 @@ import { usePosts } from "@/app/context/PostsContext";
 
 export default function NewPostPage() {
   const {accessToken, isAuthenticated} = useAuth();
-  const {posts, setPosts} = usePosts();
+  const {fetchPosts} = usePosts();
 
   const handleCreatePost = async (postData: IPost) => {
     try {
@@ -17,7 +17,7 @@ export default function NewPostPage() {
         },
       });
 
-      setPosts([postData, ...posts]);
+      fetchPosts();
 
       toast.success("Post adicionado com sucesso!"); 
       

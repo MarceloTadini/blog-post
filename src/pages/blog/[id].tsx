@@ -17,7 +17,7 @@ export default function Post() {
     return (
         <div className="flex flex-1 py-10 md:flex-row max-md:flex-col">
 
-            <div className="flex flex-col md:flex-row justify-center gap-6 mx-4">
+            <div className="flex flex-1 flex-col md:flex-row justify-between gap-6 mx-4">
                 {/* Texto */}
                 <div className="w-full md:w-2/4">
                     <h1 className="text-3xl font-bold text-[var(--tw-title-text)]">{post.title}</h1>
@@ -30,9 +30,9 @@ export default function Post() {
                 {/* Imagem + Vídeo */}
                 <div className="w-full md:w-1/4 flex flex-col items-center">
                     <Image
-                        src={post.imageUrl}
+                        src={post.imageUrl || "/images/default-image.png"}
                         alt={post.intro}
-                        className="w-full max-h-96 object-cover rounded-lg mt-6 shadow-md mb-5"
+                        className="w-full max-h-96 object-cover rounded-lg mt-6 shadow-md mb-5 max-md:w-80"
                         width={100}
                         height={100}
                     />

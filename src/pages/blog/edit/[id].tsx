@@ -21,11 +21,9 @@ export default function EditPostPage() {
         },
       });
 
-      setPosts((prevPosts: IPost[]) => {
-        return prevPosts.map(post =>
-          post._id === postId ? { ...post, ...updatedData } : post
-        );
-      });
+      setPosts((prevPosts) =>
+        prevPosts.map((post) => (post._id === postId ? { ...post, ...updatedData } : post))
+      );
 
       toast.success("Post editado com sucesso!"); 
     
@@ -40,7 +38,7 @@ export default function EditPostPage() {
   if (loading) return <p className="text-center">Carregando...</p>;
   if (!isAuthenticated) return <p className="text-center mt-10">Necessário fazer o Login para editar um Post</p>;
 
-  const post = posts.find((post) => post._id === postId);
+  const post = postId ? posts.find((post) => post._id === postId) : null;
 
   return post ? <FormPost initialData={post} onSubmit={handleUpdatePost} /> : <p className="text-center">Post não encontrado.</p>;
 }

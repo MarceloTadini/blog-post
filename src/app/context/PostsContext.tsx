@@ -9,23 +9,23 @@ export const PostsProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const response = await axios.get("https://blog-posts-hori.onrender.com/post");
-        setPosts(response.data);
-      } catch (error) {
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
+  const fetchPosts = async () => {
+    try {
+      const response = await axios.get("https://blog-posts-hori.onrender.com/post");
+      setPosts(response.data);
+    } catch (error) {
+      setError(true);
+    } finally {
+      setLoading(false);
     }
+  };
 
+  useEffect(() => {
     fetchPosts();
-  }, [posts]);
+  }, []);
 
   return (
-    <PostsContext.Provider value={{ posts, loading, error, setPosts }}>
+    <PostsContext.Provider value={{ posts, loading, error, setPosts, fetchPosts }}>
       {children}
     </PostsContext.Provider>
   );

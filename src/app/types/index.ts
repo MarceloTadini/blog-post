@@ -20,6 +20,7 @@ export interface IErrorInputTextProps {
 
 export interface PostsContextType {
   posts: IPost[];
+  fetchPosts: () => Promise<void>;
   loading: boolean;
   error: boolean;
   setPosts: React.Dispatch<React.SetStateAction<IPost[]>>;
