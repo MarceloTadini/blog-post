@@ -88,14 +88,18 @@ export default function Blog() {
 
           {isAuthenticated && (
             <div className="flex md:flex-col flex-row justify-center gap-2 mt-4 md:mt-0">
-              <Trash2Icon
-                onClick={() => post._id && handleRemove(post._id)}
-                className="cursor-pointer text-red-500 hover:text-red-700"
-              />
-              <FilePenLineIcon
-                onClick={() => router.push(`/blog/edit/${post._id}`)}
-                className="cursor-pointer text-blue-500 hover:text-blue-700"
-              />
+              <span title="Remover postagem">
+                <Trash2Icon
+                  onClick={() => post._id && handleRemove(post._id)}
+                  className="cursor-pointer text-red-500 hover:text-red-700"
+                />
+              </span>
+              <span title="Editar postagem">
+                <FilePenLineIcon
+                  onClick={() => router.push(`/blog/edit/${post._id}`)}
+                  className="cursor-pointer text-blue-500 hover:text-blue-700"
+                />
+              </span>
             </div>
           )}
         </article>

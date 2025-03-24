@@ -6,6 +6,7 @@ import axios from "axios";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import ErrorInputText from "@/app/components/ErrorInputText";
 import { IFormRegisterUser } from "@/app/types";
+import { toast } from "react-toastify";
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -37,7 +38,7 @@ export default function Register() {
   
     try {
       await axios.post("https://blog-posts-hori.onrender.com/auth/register", user);
-      alert("Usuário cadastrado com sucesso");
+      toast.success("Usuário cadastrado com sucesso!"); 
       resetForm();
       router.push("/");
     } catch (err) {

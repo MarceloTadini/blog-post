@@ -5,7 +5,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { email, password } = req.body;
 
     try {
-      // Substitua pela lógica de autenticação da sua API
       const response = await fetch('https://blog-posts-hori.onrender.com/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
