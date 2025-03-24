@@ -1,12 +1,7 @@
 import { useRouter } from "next/navigation";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { IPost } from "../types";
-
-interface FormPostProps {
-  initialData?: IPost;
-  onSubmit: (postData: IPost) => Promise<void>;
-}
+import { FormPostProps, IPost } from "../types";
 
 const validationSchema = Yup.object({
   title: Yup.string().min(3, "O título deve ter pelo menos 3 caracteres").required("Título é obrigatório"),

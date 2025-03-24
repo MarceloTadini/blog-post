@@ -18,6 +18,11 @@ export interface IErrorInputTextProps {
   children?: React.ReactNode;
 }
 
+export interface FormPostProps {
+  initialData?: IPost;
+  onSubmit: (postData: IPost) => Promise<void>;
+}
+
 export interface PostsContextType {
   posts: IPost[];
   fetchPosts: () => Promise<void>;

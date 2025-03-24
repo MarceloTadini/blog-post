@@ -15,7 +15,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           setAccessToken(tokenResponse.data.access_token);
         }
       } catch (error) {
-        
+        if (error instanceof Error) {
+          console.log(error.message);
+        } else {
+          console.log("An unknown error occurred");
+        }
       }
     }
 
