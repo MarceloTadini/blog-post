@@ -10,7 +10,7 @@ export default function EditPostPage() {
   const router = useRouter();
   const { id: postId } = router.query; 
   const {accessToken, isAuthenticated} = useAuth();
-  const {loading, posts, setPosts} = usePosts();
+  const {loading, posts, fetchPosts} = usePosts();
 
   const handleUpdatePost = async (updatedData: IPost) => {
 
@@ -21,9 +21,7 @@ export default function EditPostPage() {
         },
       });
 
-      setPosts((prevPosts) =>
-        prevPosts.map((post) => (post._id === postId ? { ...post, ...updatedData } : post))
-      );
+      fetchPosts();
 
       toast.success("Post editado com sucesso!"); 
     
@@ -32,7 +30,6 @@ export default function EditPostPage() {
       toast.error("Erro ao editar post, tente novamente!");
     }
 
-    
   };
 
   if (loading) return <p className="text-center">Carregando...</p>;

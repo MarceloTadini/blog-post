@@ -12,8 +12,6 @@ export default function Blog() {
   const router = useRouter();
   const { posts, loading, error, fetchPosts } = usePosts();
   const { accessToken, isAuthenticated } = useAuth();
-  console.log("Posts carregados:", posts);
-
 
   async function handleRemove(id: string) {
     try {

@@ -17,9 +17,9 @@ export default function Post() {
     return (
         <div className="flex flex-1 py-10 md:flex-row max-md:flex-col">
 
-            <div className="flex flex-1 flex-col md:flex-row justify-between gap-6 mx-4">
+            <div className="flex flex-1 flex-col md:flex-row justify-between gap-6 mx-4 pl-4 pr-4">
                 {/* Texto */}
-                <div className="w-full md:w-2/4">
+                <div className="w-full md:w-3/4">
                     <h1 className="text-3xl font-bold text-[var(--tw-title-text)]">{post.title}</h1>
                     <p className="text-sm text-[var(--tw-subtitle-text)] mt-1">{post.author}</p>
 
