@@ -6,16 +6,17 @@ O **Blog Posts** é um projeto desenvolvido com **Next.js** e **Tailwind CSS** p
 
 🖥️ A aplicação é **responsiva** e se ajusta automaticamente ao tamanho da tela.
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Tecnologias Utilizadas  
 
-- ⚡ **Next.js**
-- 🎨 **Tailwind CSS**
-- 📡 **Axios**
-- ✨ **Lucide React**
-- 📑 **Formik e Yup**
-- 🔹 **TypeScript**
-- 🖥️ **Node.js v20.12.0**
-- 📦 **NPM v10.5.0**
+- ⚡ **Next.js**: Utilizado como framework React para otimizar a performance da aplicação, oferecendo renderização híbrida (SSR/SSG) e uma estrutura organizada para desenvolvimento.  
+- 🎨 **Tailwind CSS**: Escolhido para estilização devido à sua abordagem baseada em classes utilitárias, permitindo um design responsivo e ágil sem a necessidade de escrever CSS customizado extenso.  
+- 📡 **Axios**: Biblioteca utilizada para realizar requisições HTTP de forma simplificada, permitindo melhor controle de erros e interceptação de respostas.  
+- ✨ **Lucide React**: Conjunto de ícones flexível e moderno, utilizado para melhorar a interface do usuário sem comprometer a performance.  
+- 📑 **Formik e Yup**: Utilizados para lidar com schemas e validações de formulários, garantindo uma experiência fluida para o usuário e prevenindo erros de entrada de dados.  
+- 🔹 **TypeScript**: Adotado para fornecer tipagem estática ao código, reduzindo erros e melhorando a manutenção e escalabilidade da aplicação.  
+- 🖥️ **Node.js v20.12.0**: Usado como ambiente de execução para a aplicação e no processo de build, garantindo compatibilidade com as dependências do projeto.    
+- 📦 **NPM v10.5.0**: Gerenciador de pacotes responsável por instalar e gerenciar dependências do projeto, garantindo a consistência do ambiente de desenvolvimento.  
+
 
 ## 🏛️ Arquitetura da Aplicação
 A estrutura do projeto está organizada da seguinte forma:
@@ -50,7 +51,7 @@ A estrutura do projeto está organizada da seguinte forma:
     │   ├── blog # ✍️ Rotas relacionadas aos posts 
     │       ├── [id].tsx
     │       ├── edit
-    │       │   └── [id].tsx
+    │       │   └── [id].tsx 
     │       ├── index.tsx
     │       └── new.tsx
     │   └── register # 🆕 Rota de cadastro de professores 
