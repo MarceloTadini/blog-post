@@ -106,7 +106,7 @@ export default function Home() {
       {/* Link para cadastro */}
       <p className="text-center text-sm text-gray-200 mt-4">
         Não tem uma conta?{" "}
-        <Link href="/register" className="text-blue-500 hover:underline">
+        <Link href="/register" className="text-white hover:bg-blue-700 rounded-lg p-2 bg-blue-500">
           Cadastre-se aqui
         </Link>
       </p>

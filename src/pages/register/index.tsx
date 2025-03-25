@@ -136,7 +136,7 @@ export default function Register() {
       {/* Link para login */}
       <p className="text-center text-sm text-gray-700 mt-4">
         Já tem uma conta?{" "}
-        <Link href="/" className="text-green-500 hover:underline">
+        <Link href="/" className="text-white hover:bg-green-700 rounded-lg p-2 bg-green-500 transition">
           Faça login aqui
         </Link>
       </p>
