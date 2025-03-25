@@ -103,6 +103,10 @@ npm run dev
 
 Isso garantirá que você esteja utilizando a versão correta do Node.js e que todas as dependências estejam instaladas.
 
+## 🎥 Vídeo do Projeto
+👉 **[Link para o vídeo](https://youtu.be/Y2KxBHfQjng)**  
+
+
 ## 🎯 Conclusão  
 📌 No início, o design da aplicação foi construído com elementos estáticos e voltado apenas para **desktop**.  
 
