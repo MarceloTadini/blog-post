@@ -15,6 +15,8 @@ const validationSchema = Yup.object({
   email: Yup.string()
     .email("Por favor, informe um e-mail válido")
     .required("Por favor, informe o seu email"),
+  role: Yup.string()
+    .required("Por favor, informe o seu cargo"),
   password: Yup.string()
     .min(8, "A senha deve possuir pelo menos 8 caracteres")
     .required("Por favor, informe sua senha"),
@@ -93,6 +95,21 @@ export default function Register() {
                 type="email"
               />
               <ErrorMessage name="email" component={ErrorInputText} />
+            </fieldset>
+
+            {/* Campo Role */}
+            <fieldset>
+              <label className="text-sm text-gray-700 mb-1">Cargo</label>
+              <Field
+                as="select"
+                name="role"
+                className="text-lg bg-gray-100 border border-gray-300 rounded-lg p-2 w-full mb-3 focus:outline-none focus:ring-2 focus:ring-green-400"
+              >
+                <option value="">Selecione um cargo</option>
+                <option value="admin">Professor</option>
+                <option value="user">Aluno</option>
+              </Field>
+              <ErrorMessage name="role" component={ErrorInputText} />
             </fieldset>
 
             {/* Campo Senha */}
